@@ -6,29 +6,29 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _animator;   
+    [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _jumpForce = 8f;
+    [SerializeField] private KeyCode _jump;
+
+    [Space]
+    [Header("Ground Checker Setting")]   
+    [Range(-5f, 5f)][SerializeField] private float _checkGroundOffsetY = -1.8f;
+    [Range(0, 5f)][SerializeField] private float _checkGroundRadius = 0.3f;
+
     private Rigidbody2D _rigidbody;
     private float _horizontalMove = 0f;
     private bool _facingRight = true;
+    private bool isGrounded = false;
 
-    [Header("Events")]
-    [Range(0, 10f)][SerializeField] private float _speed = 1f;
-    [Range(0, 15f)][SerializeField] private float _jumpForce = 8f;
-
-    [Space]
-    [Header("Ground Checker Setting")]
-    public bool isGrounded = false;
-    [Range(-5f, 5f)][SerializeField] private float _checkGroundOffsetY = -1.8f;
-    [Range(0, 5f)][SerializeField] private float _checkGroundRadius = 0.3f; 
-
-    private void Start()
-    {   
-        _rigidbody = GetComponent<Rigidbody2D>();      
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();             
     }
 
     private void Update()
     {
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded && Input.GetKeyDown(_jump))
         {
             _rigidbody.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
         }

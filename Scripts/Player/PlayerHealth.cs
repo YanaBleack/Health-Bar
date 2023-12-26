@@ -5,15 +5,15 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
     [SerializeField] private int _health;
     [SerializeField] int _maxHealth;
 
     public int MaxHealth => _maxHealth;
 
-    public event UnityAction<int> HealthChanged;
+    public event UnityAction<int> HealthChanged; 
     public event UnityAction ButtonClickHeal; 
-    public event UnityAction ButtonClickDamage; 
+    public event UnityAction ButtonClickDamage;
+    public event UnityAction Dead;
 
     public void TakeDamage(int damage)
     {
@@ -43,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Умер Игрок!");
-       _animator.SetTrigger(PlayerAnimatorData.Params.IsDead);         
+        Dead.Invoke();        
     }
 
     private void Start()

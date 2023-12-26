@@ -5,20 +5,18 @@ using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
     [SerializeField] int _health;
     [SerializeField] int _maxHealth;
 
     public int MaxHealth => _maxHealth;
-
     public event UnityAction<int> HealthChanged;
+    public event UnityAction DamageTaken;
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
         HealthChanged?.Invoke(_health);
-
-        _animator.SetTrigger(EnemyAnimatorData.Params.Attack);
+        DamageTaken.Invoke();
 
         if (_health <= 0)
         {
