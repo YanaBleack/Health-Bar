@@ -21,5 +21,4 @@ public class EnemyView : MonoBehaviour
     {
         _animator.SetTrigger(EnemyAnimatorData.Params.Attack);
     }
-
 }
